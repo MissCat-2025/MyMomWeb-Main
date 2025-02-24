@@ -1,0 +1,289 @@
+/* 基础样式 */
+body {
+    font-family: 'Microsoft YaHei', SimHei, sans-serif;
+    line-height: 1.8;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fef9f6;
+    color: #4a4a4a;
+}
+
+/* 头部样式 */
+.header {
+    text-align: center;
+    padding: 30px 0;
+    background: linear-gradient(135deg, #f8d4d0 0%, #f9f3e6 100%);
+    border-radius: 15px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.header h1 {
+    color: #2d4059;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.contact {
+    color: #e23e57;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+/* 头像样式 */
+.avatar-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: #fff;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+}
+
+/* 表格样式 */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.info-table th {
+    background-color: #f8b195;
+    color: white;
+    padding: 15px;
+    width: 30%;
+}
+
+.info-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* 资质认证 */
+.certification {
+    background: #fff5f3;
+    padding: 25px;
+    border-radius: 10px;
+    margin: 25px 0;
+    border-left: 5px solid #f8b195;
+}
+
+.certification p {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+/* 服务列表 */
+.service-section {
+    margin: 30px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.service-section h3 {
+    color: #2d4059;
+    border-left: 4px solid #f8b195;
+    padding-left: 15px;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+}
+
+.service-list li {
+    padding: 12px 0;
+    border-bottom: 1px dashed #eee;
+    position: relative;
+    padding-left: 25px;
+}
+
+.service-list li::before {
+    content: "•";
+    color: #f8b195;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* 图片展示区域基础样式 */
+.photo-gallery {
+    display: grid;
+    gap: 20px;
+    padding: 20px 0;
+    margin: 0 auto;
+    width: 100%;
+    justify-content: center;
+}
+
+/* 服务图片展示 - 4列布局 */
+.service-photos {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1000px;
+}
+
+/* 月子餐图片展示 - 2列布局 */
+.food-photos {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+}
+
+/* 图片容器样式 */
+.photo-gallery .img-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    aspect-ratio: 4/3;
+}
+
+.photo-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.4s ease;
+    display: block;
+}
+
+.food-photos img {
+    height: 320px;
+}
+
+/* 新的图片标题悬停效果 */
+.img-container .img-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+    color: white;
+    font-size: 0.9em;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    text-align: center;
+    pointer-events: none;
+}
+
+.img-container:hover .img-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.img-container:hover img {
+    transform: scale(1.08);
+}
+
+/* 移除之前的图片加载动画 */
+.img-container::before {
+    display: none;
+}
+
+/* 响应式设计优化 */
+@media (max-width: 1024px) {
+    .service-photos {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .photo-gallery img {
+        height: 220px;
+    }
+    
+    .food-photos img {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-photos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .food-photos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .photo-gallery img {
+        height: 200px;
+    }
+    
+    .food-photos img {
+        height: 260px;
+    }
+    
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-photos,
+    .food-photos {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
+    }
+    
+    .photo-gallery img {
+        height: 240px;
+    }
+    
+    .food-photos img {
+        height: 240px;
+    }
+    
+    .avatar-container {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .header h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* 图片展示区标题样式 */
+.main-section.photo-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.main-section.photo-section h2 {
+    color: #2d4059;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f8b195;
+    text-align: center;
+}
