@@ -158,41 +158,108 @@
         const foodCount = typeof IMAGE_CONFIG !== 'undefined' ? IMAGE_CONFIG.foodCount : 20;
         const serviceCount = typeof IMAGE_CONFIG !== 'undefined' ? IMAGE_CONFIG.serviceCount : 10;
         
-        // 加载食物图片
+        // 加载食物图片组
         const foodGallery = document.getElementById('foodGallery');
-        loadImages(foodGallery, 'images/food/food', foodCount, foodTitles);
+        loadImageGroups(foodGallery, 'images/food/food', foodCount, foodTitles, "月子餐");
         
-        // 加载服务图片
+        // 加载服务图片组
         const serviceGallery = document.getElementById('serviceGallery');
-        loadImages(serviceGallery, 'images/service/service', serviceCount, serviceTitles);
+        loadImageGroups(serviceGallery, 'images/service/service', serviceCount, serviceTitles, "服务");
         
-        // 加载图片的函数
-        function loadImages(gallery, basePath, count, titles) {
+        // 加载图片组的函数 - 每4张图片合并为一组
+        function loadImageGroups(gallery, basePath, count, titles, groupType) {
             gallery.innerHTML = ''; // 清空原有内容
             
-            for (let i = 1; i <= count; i++) {
-                const imgContainer = document.createElement('div');
-                imgContainer.className = 'img-container';
+            // 计算需要创建的图片组数量
+            const groupCount = Math.ceil(count / 4);
+            
+            for (let groupIndex = 0; groupIndex < groupCount; groupIndex++) {
+                // 创建图片组容器
+                const imageGroup = document.createElement('div');
+                imageGroup.className = 'image-group';
                 
-                const img = document.createElement('img');
-                img.src = `${basePath}${i}.jpg`;
-                img.alt = `${basePath.includes('food') ? '营养月子餐' : '母婴护理服务'}展示${i}`;
+                // 创建内部网格容器
+                const gridContainer = document.createElement('div');
+                gridContainer.className = 'image-group-container';
                 
-                // 添加图片加载错误处理
-                img.onerror = function() {
-                    imgContainer.remove(); // 如果图片加载失败，移除整个容器
-                };
+                // 为每个组添加4张图片（或剩余的图片）
+                const startImgIndex = groupIndex * 4;
+                const endImgIndex = Math.min(startImgIndex + 4, count);
                 
-                const imgTitle = document.createElement('div');
-                imgTitle.className = 'img-title';
+                for (let i = startImgIndex; i < endImgIndex; i++) {
+                    const imgIndex = i + 1; // 图片索引从1开始
+                    
+                    // 创建图片项容器
+                    const imgItem = document.createElement('div');
+                    imgItem.className = 'image-group-item';
+                    
+                    // 创建图片元素
+                    const img = document.createElement('img');
+                    img.className = 'lazy-load'; // 添加懒加载类
+                    img.dataset.src = `${basePath}${imgIndex}.jpg`; // 使用data-src存储真实路径
+                    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // 占位图
+                    img.alt = `${groupType}展示${imgIndex}`;
+                    
+                    // 图片加载错误处理
+                    img.onerror = function() {
+                        imgItem.style.display = 'none';
+                    };
+                    
+                    imgItem.appendChild(img);
+                    gridContainer.appendChild(imgItem);
+                }
                 
-                // 为图片添加标题，如果索引超出预设标题，则使用默认标题
-                const titleIndex = i - 1;
-                imgTitle.textContent = titleIndex < titles.length ? titles[titleIndex] : (basePath.includes('food') ? `营养月子餐${i}` : `服务实拍${i}`);
+                // 如果不足4张图片，添加空白项填充
+                for (let i = endImgIndex - startImgIndex; i < 4; i++) {
+                    const emptyItem = document.createElement('div');
+                    emptyItem.className = 'image-group-item empty';
+                    gridContainer.appendChild(emptyItem);
+                }
                 
-                imgContainer.appendChild(img);
-                imgContainer.appendChild(imgTitle);
-                gallery.appendChild(imgContainer);
+                // 添加组标题
+                const groupTitle = document.createElement('div');
+                groupTitle.className = 'group-title';
+                groupTitle.textContent = `${groupType}组${groupIndex + 1}`;
+                
+                // 组装图片组
+                imageGroup.appendChild(gridContainer);
+                imageGroup.appendChild(groupTitle);
+                gallery.appendChild(imageGroup);
+            }
+            
+            // 实现懒加载
+            implementLazyLoading();
+        }
+        
+        // 实现懒加载功能
+        function implementLazyLoading() {
+            const lazyImages = document.querySelectorAll('.lazy-load');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            const image = entry.target;
+                            image.src = image.dataset.src;
+                            image.onload = function() {
+                                image.classList.add('loaded');
+                            };
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(function(image) {
+                    imageObserver.observe(image);
+                });
+            } else {
+                // 回退方案：简单延迟加载
+                setTimeout(function() {
+                    lazyImages.forEach(function(image) {
+                        image.src = image.dataset.src;
+                        image.classList.add('loaded');
+                    });
+                }, 500);
             }
         }
     });

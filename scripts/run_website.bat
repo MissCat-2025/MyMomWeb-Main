@@ -7,7 +7,6 @@ set SCRIPT_DIR=%~dp0
 set ROOT_DIR=%SCRIPT_DIR%..
 
 REM 执行PowerShell脚本进行图片重命名
-echo 执行图片规范化命名中，请稍候...
 powershell -ExecutionPolicy Bypass -File "%SCRIPT_DIR%rename_food_images.ps1"
 
 echo 图片处理完成！
