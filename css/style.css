@@ -9,38 +9,62 @@ body {
     color: #4a4a4a;
 }
 
-/* 头部样式 */
+/* 头部样式 - 更加简洁的布局 */
 .header {
-    text-align: center;
-    padding: 30px 0;
-    background: linear-gradient(135deg, #f8d4d0 0%, #f9f3e6 100%);
-    border-radius: 15px;
-    margin-bottom: 30px;
     position: relative;
+    padding: 40px 30px;
+    background: linear-gradient(135deg, #ffdcd5 0%, #fff2ea 100%);
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.header-left {
+    flex: 2;
+    max-width: 70%;
+}
+
+.header-right {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .header h1 {
     color: #2d4059;
     font-size: 2.5em;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.header h2 {
+    color: #e23e57;
+    font-size: 2em;
+    margin-bottom: 15px;
 }
 
 .contact {
     color: #e23e57;
     font-size: 1.4em;
     font-weight: 600;
+    margin-bottom: 25px;
 }
 
-/* 头像样式 */
+/* 头像样式 - 改为圆角矩形 */
 .avatar-container {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 20px;
-    border-radius: 50%;
+    width: 360px;
+    height: 520px;
+    border-radius: 20px;
     overflow: hidden;
-    border: 5px solid #fff;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 10px solid #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     background: #fff;
 }
 
@@ -55,13 +79,32 @@ body {
     transform: scale(1.05);
 }
 
+/* 头部信息表格 */
+.quick-info {
+    margin-top: 25px;
+}
+
+.header-table {
+    margin: 0;
+    font-size: 1em;
+    width: 100%;
+    max-width: 600px;
+}
+
+.header-table th,
+.header-table td {
+    padding: 10px 15px;
+}
+
 /* 表格样式 */
 .info-table {
     width: 100%;
     border-collapse: collapse;
     margin: 25px 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     background: white;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .info-table th {
@@ -69,6 +112,8 @@ body {
     color: white;
     padding: 15px;
     width: 30%;
+    text-align: center;
+    font-weight: bold;
 }
 
 .info-table td {
@@ -76,33 +121,152 @@ body {
     border-bottom: 1px solid #eee;
 }
 
+.info-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* 标题样式美化 */
+.section-title {
+    position: relative;
+    text-align: center;
+    margin: 40px 0 30px;
+    overflow: hidden;
+}
+
+.section-title span {
+    display: inline-block;
+    position: relative;
+    padding: 0 25px;
+    font-size: 1.8em;
+    color: #2d4059;
+    font-weight: bold;
+}
+
+.section-title span:before,
+.section-title span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: #f8b195;
+}
+
+.section-title span:before {
+    right: 100%;
+}
+
+.section-title span:after {
+    left: 100%;
+}
+
 /* 资质认证 */
 .certification {
     background: #fff5f3;
-    padding: 25px;
-    border-radius: 10px;
+    padding: 30px;
+    border-radius: 12px;
     margin: 25px 0;
     border-left: 5px solid #f8b195;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .certification p {
-    margin: 10px 0;
+    margin: 18px 0;
+    font-size: 1.3em;
+}
+
+/* 服务内容容器 - 左右布局 */
+.service-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.service-left, 
+.service-right {
+    flex: 1 1 calc(50% - 15px);
+    min-width: 300px;
+}
+
+/* 新增：两大服务类别左右布局 */
+.service-categories {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.service-category {
+    flex: 1 1 calc(50% - 15px);
+    min-width: 300px;
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.service-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.category-header {
+    background: linear-gradient(135deg, #f8b195 0%, #f67280 100%);
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+.category-title {
+    margin: 0;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.service-category .service-list {
+    padding: 20px 30px;
+    margin: 0;
+}
+
+.service-category .service-list li {
+    padding: 14px 0;
+    border-bottom: 1px dashed #eee;
+    position: relative;
+    padding-left: 25px;
     font-size: 1.1em;
 }
 
-/* 服务列表 */
+.service-category .service-list li::before {
+    content: "•";
+    color: #f8b195;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.service-category .service-list li:last-child {
+    border-bottom: none;
+}
+
+/* 服务列表样式 */
 .service-section {
-    margin: 30px 0;
-    padding: 20px;
+    margin: 20px 0;
+    padding: 30px;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .service-section h3 {
     color: #2d4059;
     border-left: 4px solid #f8b195;
     padding-left: 15px;
+    margin-bottom: 25px;
+    font-size: 1.4em;
+    font-weight: bold;
 }
 
 .service-list {
@@ -111,10 +275,11 @@ body {
 }
 
 .service-list li {
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px dashed #eee;
     position: relative;
     padding-left: 25px;
+    font-size: 1.1em;
 }
 
 .service-list li::before {
@@ -125,37 +290,47 @@ body {
     left: 0;
 }
 
+.service-list li:last-child {
+    border-bottom: none;
+}
+
 /* 图片展示区域基础样式 */
 .photo-gallery {
     display: grid;
-    gap: 20px;
+    gap: 25px;
     padding: 20px 0;
     margin: 0 auto;
     width: 100%;
     justify-content: center;
 }
 
-/* 服务图片展示 - 4列布局 */
+/* 服务图片展示 - 4列布局，更大的图片 */
 .service-photos {
     grid-template-columns: repeat(4, 1fr);
-    max-width: 1000px;
+    max-width: 1100px;
 }
 
-/* 月子餐图片展示 - 2列布局 */
+/* 月子餐图片展示 - 自适应布局 */
 .food-photos {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 800px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    max-width: 1100px;
+    grid-auto-rows: 1fr;
 }
 
-/* 图片容器样式 */
+/* 图片容器样式 - 增大图片 */
 .photo-gallery .img-container {
     position: relative;
     overflow: hidden;
     border-radius: 12px;
     background: #fff;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     transition: all 0.4s ease;
     aspect-ratio: 4/3;
+}
+
+/* 食物图片特别样式 */
+.food-photos .img-container {
+    aspect-ratio: 1/1;
 }
 
 .photo-gallery img {
@@ -166,11 +341,7 @@ body {
     display: block;
 }
 
-.food-photos img {
-    height: 320px;
-}
-
-/* 新的图片标题悬停效果 */
+/* 图片标题悬停效果 */
 .img-container .img-title {
     position: absolute;
     bottom: 0;
@@ -179,7 +350,7 @@ body {
     padding: 15px 10px;
     background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
     color: white;
-    font-size: 0.9em;
+    font-size: 1em;
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.3s ease;
@@ -196,94 +367,163 @@ body {
     transform: scale(1.08);
 }
 
-/* 移除之前的图片加载动画 */
-.img-container::before {
-    display: none;
+/* 图片展示区标题样式 */
+.main-section.photo-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* 页脚样式 */
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 25px;
+    background: #2d4059;
+    color: #fff;
+    border-radius: 12px;
+}
+
+/* 移动端联系按钮 */
+.mobile-contact {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.mobile-contact a {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #e23e57;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* 响应式设计优化 */
 @media (max-width: 1024px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .header-left {
+        max-width: 100%;
+    }
+    
+    .header-right {
+        position: static;
+        transform: none;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .quick-info {
+        margin: 20px auto;
+    }
+    
+    .header-table {
+        margin: 0 auto;
+    }
+    
     .service-photos {
         grid-template-columns: repeat(3, 1fr);
     }
     
-    .photo-gallery img {
-        height: 220px;
+    .avatar-container {
+        width: 280px;
+        height: 400px;
     }
     
-    .food-photos img {
-        height: 300px;
+    .service-categories {
+        flex-direction: column;
+    }
+    
+    .service-category {
+        margin-bottom: 20px;
     }
 }
 
 @media (max-width: 768px) {
     .service-photos {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        gap: 20px;
     }
     
     .food-photos {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
     }
     
-    .photo-gallery img {
-        height: 200px;
-    }
-    
-    .food-photos img {
-        height: 260px;
+    .service-container {
+        flex-direction: column;
     }
     
     .avatar-container {
-        width: 120px;
-        height: 120px;
+        width: 220px;
+        height: 320px;
+        border-width: 8px;
     }
     
     .header h1 {
         font-size: 2em;
     }
+    
+    .certification p {
+        font-size: 1.2em;
+    }
 }
 
-@media (max-width: 480px) {
-    .service-photos,
-    .food-photos {
+@media (max-width: 600px) {
+    .service-photos {
         grid-template-columns: repeat(1, 1fr);
-        gap: 15px;
     }
     
-    .photo-gallery img {
-        height: 240px;
-    }
-    
-    .food-photos img {
-        height: 240px;
+    .food-photos {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
     
     .avatar-container {
-        width: 100px;
-        height: 100px;
+        width: 180px;
+        height: 260px;
     }
     
     .header h1 {
         font-size: 1.8em;
     }
+    
+    .header h2 {
+        font-size: 1.5em;
+    }
+    
+    .section-title span {
+        font-size: 1.5em;
+    }
+    
+    .service-section {
+        padding: 20px;
+    }
 }
 
-/* 图片展示区标题样式 */
-.main-section.photo-section {
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.main-section.photo-section h2 {
-    color: #2d4059;
-    font-size: 1.4em;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #f8b195;
-    text-align: center;
+@media (max-width: 480px) {
+    .avatar-container {
+        width: 150px;
+        height: 220px;
+        border-width: 6px;
+    }
+    
+    .header {
+        padding: 25px 15px;
+    }
+    
+    .food-photos {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+    }
 }
