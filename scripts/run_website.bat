@@ -10,11 +10,31 @@ REM 执行PowerShell脚本进行图片重命名
 powershell -ExecutionPolicy Bypass -File "%SCRIPT_DIR%rename_food_images.ps1"
 
 echo 图片处理完成！
-echo 正在启动网站...
 
-REM 打开网站首页
+:menu
+cls
+echo 请选择要启动的网站版本:
+echo 1. 桌面版网站
+echo 2. 移动端网站
+echo 3. 退出
+set /p choice=请输入选择(1-3): 
+
+if "%choice%"=="1" goto desktop
+if "%choice%"=="2" goto mobile
+if "%choice%"=="3" goto end
+goto menu
+
+:desktop
+echo 正在启动桌面版网站...
 start "" "%ROOT_DIR%\index.html"
+goto end
 
+:mobile
+echo 正在启动移动端网站...
+start "" "%ROOT_DIR%\mobile.html"
+goto end
+
+:end
 echo 网站已启动！
 echo 月子餐与服务照片已根据文件夹中的实际数量自适应显示。
 pause 
