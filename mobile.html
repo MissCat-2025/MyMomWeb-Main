@@ -78,6 +78,13 @@
             <p>✅ 中医催乳产康技术认证</p>
             <p>✅ 营养师资格证</p>
         </div>
+        
+        <!-- 添加资格证件展示 -->
+        <div class="credential-gallery">
+            <a href="javascript:void(0)" class="view-credential-btn" onclick="showCredentials()">
+                查看资格证件
+            </a>
+        </div>
     </section>
 
     <!-- 主要服务类别 -->
@@ -159,6 +166,18 @@
         </div>
     </section>
 
+    <!-- 证书展示模态框 -->
+    <div class="credential-modal" id="credentialModal">
+        <a href="javascript:void(0)" class="close-modal" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </a>
+        <div class="modal-content">
+            <div class="credential-slider" id="credentialSlider">
+                <!-- 证书图片将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </div>
+
     <!-- 页脚 -->
     <footer class="footer">
         <p>© 2023 罗荣秀母婴护理服务 保留所有权利</p>
@@ -198,6 +217,18 @@
     <!-- 动态加载图片的脚本 -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // 证书标题列表
+        const credentialTitles = [
+            "国家育婴师资格证", "高级母婴护理专项认证", "中医催乳产康技术认证"
+        ];
+        
+        // 证书文件名列表
+        const credentialFiles = [
+            "1fe33970821f2a8e1dc47914136d9f4.jpg",
+            "38afa15f3f1180237eb62d5764767c3.jpg",
+            "3f97e55ffe7fb2cee7c979bd991d98d.jpg"
+        ];
+        
         // 月子餐标题列表
         const foodTitles = [
             "营养月子餐", "产后调理餐", "滋补汤品", "营养甜品", 
@@ -226,6 +257,41 @@
         // 加载服务图片组
         const serviceGallery = document.getElementById('serviceGallery');
         loadImageGroups(serviceGallery, 'images/service/service', serviceCount, serviceTitles, "服务");
+        
+        // 加载证书图片
+        function loadCredentialImages() {
+            const slider = document.getElementById('credentialSlider');
+            slider.innerHTML = '';
+            
+            credentialFiles.forEach((file, index) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'credential-slide';
+                
+                const img = document.createElement('img');
+                img.src = `images/credential/${file}`;
+                img.alt = credentialTitles[index] || `资格证书${index + 1}`;
+                
+                imgContainer.appendChild(img);
+                slider.appendChild(imgContainer);
+            });
+        }
+        
+        // 显示证书模态框
+        window.showCredentials = function() {
+            const modal = document.getElementById('credentialModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 禁止滚动
+            
+            // 加载证书图片
+            loadCredentialImages();
+        };
+        
+        // 关闭模态框
+        window.closeModal = function() {
+            const modal = document.getElementById('credentialModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // 恢复滚动
+        };
         
         // 加载图片组的函数 - 每4张图片合并为一组
         function loadImageGroups(gallery, basePath, count, titles, groupType) {
